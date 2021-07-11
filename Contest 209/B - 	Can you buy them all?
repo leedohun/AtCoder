@@ -1,1 +1,35 @@
-
+#define _CRT_SECURE_NO_WARNINGS
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <climits>
+#include <bitset>
+#include <queue>
+ 
+typedef long long ll;
+ 
+using namespace std;
+ 
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+ 
+    int N, X; cin >> N >> X;
+    vector<int> v;
+ 
+    int sum = 0;
+    for (int i = 0; i < N; i++) {
+        int tmp; cin >> tmp;
+        sum += tmp;
+    }
+ 
+    sum -= N / 2;
+ 
+    if (sum <= X)
+        cout << "Yes";
+    else
+        cout << "No";
+}
