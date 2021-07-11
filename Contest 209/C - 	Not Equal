@@ -1,1 +1,45 @@
-
+#define _CRT_SECURE_NO_WARNINGS
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <climits>
+#include <bitset>
+#include <queue>
+ 
+typedef long long ll;
+ 
+using namespace std;
+ 
+int N;
+vector <int> C;
+ 
+ll dp[200005] = { 0, };
+ 
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+ 
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        int tmp; cin >> tmp;
+        C.push_back(tmp);
+    }
+ 
+    sort(C.begin(), C.end());
+ 
+    dp[0] = C[0];
+    for (int i = 1; i < N; i++) {
+        dp[i] = dp[i - 1] - 1 + C[i] - C[i - 1];
+    }
+ 
+    ll ret = dp[0];
+    for (int i = 1; i < N; i++) {
+        ret *= dp[i];
+        ret %= 1000000007;
+    }
+ 
+    cout << ret % 1000000007;
+}
