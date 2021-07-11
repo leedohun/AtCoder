@@ -1,1 +1,64 @@
-
+#define _CRT_SECURE_NO_WARNINGS
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstring>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <climits>
+#include <bitset>
+#include <queue>
+ 
+typedef long long ll;
+ 
+using namespace std;
+ 
+int N, Q;
+vector<pair<int, int> > v[200005];
+ 
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+ 
+    cin >> N >> Q;
+    for (int i = 0; i < N - 1; i++) {
+        int a, b; cin >> a >> b;
+        v[a].push_back({ b, 1 });
+        v[b].push_back({ a, 1 });
+    }
+ 
+    int dist[200005] = { 0, };
+    fill(dist, dist + N + 1, 987654321);
+    priority_queue<pair<int, int> > qu;
+ 
+    qu.push({ 0, 1 });    //우선순위 큐에 시작점을 넣어줍니다. 
+    dist[1] = 0;    //시작점의 최단거리를 갱신합니다. 
+ 
+    while (!qu.empty()) {
+        int cost = -qu.top().first;    // cost는 다음 방문할 점의 dist값을 뜻합니다. 
+        int here = qu.top().second;     // here을 방문할 점의 번호를 뜻합니다 
+ 
+        qu.pop();
+ 
+        for (int i = 0; i < v[here].size(); i++) {
+            int next = v[here][i].first;
+            int nextcost = v[here][i].second;
+ 
+            if (dist[next] > dist[here] + nextcost) {
+                //현재 next에 저장된 dist의값보다 현재의 점을 거쳐서 갈 경우가 
+                // 거리가 더짧으면 갱신해 주고 큐에 넣습니다. 
+                dist[next] = dist[here] + nextcost;
+                qu.push({ -dist[next],next });
+            }
+        }
+    }
+ 
+    for (int i = 0; i < Q; i++) {
+        int c, d; cin >> c >> d;
+ 
+        if ((dist[c] + dist[d]) % 2 == 0)
+            cout << "Town\n";
+        else
+            cout << "Road\n";
+    }
+}
