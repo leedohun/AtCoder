@@ -40,3 +40,11 @@ int main(int argc, char** argv) {
     cout << ret << "\n";
     return 0;
 }
+
+/*
+수식
+= a[i][j] + a[i'][j'] + C * (|i - i'| + |j - j'|)
+= a[i][j] + a[i'][j'] + C * (i - i' + j - j') (단, i' < i && j' < j)
+= a[i][j] + C * (i + j) + a[i'][j'] - C * (j - j') (단, i' < i && j' < j)
+따라서, dp[i][j] = min(dp[i][j], a[i][j] - (i + j) * C
+*/
